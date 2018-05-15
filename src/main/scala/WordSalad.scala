@@ -2,7 +2,7 @@ import scala.collection.immutable
 import scala.io.Source
 import scala.util.Random
 
-class Parse {
+class WordSalad {
   def read(): String = {
     Source.fromResource("statements").getLines().mkString("")
   }
@@ -34,15 +34,15 @@ class Parse {
 }
 
 object Main extends App {
-  val p = new Parse()
-  val lines = p.read()
-  val tokens = p.tokenize(lines)
-  val ngrams = p.ngram(2, tokens)
-  p.makeDictionary(ngrams)
+  val wordSalad = new WordSalad()
+  val lines = wordSalad.read()
+  val tokens = wordSalad.tokenize(lines)
+  val ngrams = wordSalad.ngram(2, tokens)
+  wordSalad.makeDictionary(ngrams)
 
-  println((1 to 50).foldLeft(p.shufflePick("I")){(str, acc) =>
+  println((1 to 50).foldLeft(wordSalad.shufflePick("I")){ (str, next) =>
     println(str)
-    p.shufflePick(str)})
+    wordSalad.shufflePick(str)})
 
 
 }
