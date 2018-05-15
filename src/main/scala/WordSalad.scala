@@ -18,6 +18,7 @@ class WordSalad {
   }
 
   private var mutableMap:  scala.collection.mutable.Map[String, Vector[String]] = scala.collection.mutable.Map.empty
+
   def makeDictionary(ngrams: Ngrams) = {
     ngrams foreach { ngram: immutable.Seq[String] =>
       val w1 = ngram(0)
@@ -25,7 +26,6 @@ class WordSalad {
       if (mutableMap.contains(w1)) mutableMap(w1) = mutableMap(w1) :+ w2
       else mutableMap.put(w1, Vector(w2))
     }
-    mutableMap
   }
 
   def shufflePick(target: String): String = {
@@ -34,7 +34,7 @@ class WordSalad {
   }
 
   def makeStatement(): Seq[String] = {
-    Seq(1,2,3).foldLeft(Seq.empty[String])((acc, _) => acc ++ makeSentence())
+    (1 to 3).foldLeft(Seq.empty[String])((acc, _) => acc ++ makeSentence())
   }
 
   def makeSentence(): immutable.Seq[String] = {
