@@ -33,7 +33,11 @@ class WordSalad {
     Random.shuffle(options).head
   }
 
-  def makeSentence() = {
+  def makeStatement(): Seq[String] = {
+    Seq(1,2,3).foldLeft(Seq.empty[String])((acc, _) => acc ++ makeSentence())
+  }
+
+  def makeSentence(): immutable.Seq[String] = {
     val seed = "I"
     seed +: unfold[String, String](seed) {
       case "." =>

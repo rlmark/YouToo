@@ -5,5 +5,5 @@ object Main extends App {
   val ngrams = wordSalad.ngram(2, tokens)
   wordSalad.makeDictionary(ngrams)
 
-  println(wordSalad.makeSentence().mkString(" "))
+  println(wordSalad.makeStatement().mkString(" "))
 }
