@@ -17,7 +17,7 @@ class WordSalad {
     tokens.sliding(scale)
   }
 
-  private var mutableMap:  scala.collection.mutable.Map[String, Vector[String]] = scala.collection.mutable.Map.empty
+  private var mutableMap: scala.collection.mutable.Map[String, Vector[String]] = scala.collection.mutable.Map.empty
 
   def makeDictionary(ngrams: Ngrams) = {
     ngrams foreach { ngram: immutable.Seq[String] =>
