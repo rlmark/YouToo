@@ -6,6 +6,7 @@ object Main extends App {
 //  ngrams.take(5).foreach(println)
   wordSalad.makeDictionary(ngrams)
 
-  println(wordSalad.makeSentence().mkString(" ").replace(" .", "."))
+  println(wordSalad.makeSentence("She").mkString(" ").replace(" .", "."))
+  println(wordSalad.makeSentence("I").mkString(" ").replace(" .", "."))
 //  println(wordSalad.makeStatement().mkString(" "))
 }

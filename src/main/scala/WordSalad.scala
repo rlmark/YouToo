@@ -21,8 +21,7 @@ class WordSalad {
 
   def makeDictionary(ngrams: Ngrams) = {
     ngrams foreach { ngram: immutable.Seq[String] =>
-      val w1 = ngram(0)
-      val w2 = ngram(1)
+      val w1 +: w2 +: _ = ngram
       if (mutableMap.contains(w1)) mutableMap(w1) = mutableMap(w1) :+ w2
       else mutableMap.put(w1, Vector(w2))
     }
@@ -33,12 +32,11 @@ class WordSalad {
     Random.shuffle(options).head
   }
 
-  def makeStatement(): Seq[String] = {
-    (1 to 3).foldLeft(Seq.empty[String])((acc, _) => acc ++ makeSentence())
+  def makeStatement(desiredSentences: Int): Seq[String] = {
+    (1 to desiredSentences).foldLeft(Seq.empty[String])((acc, _) => acc ++ makeSentence())
   }
 
-  def makeSentence(): immutable.Seq[String] = {
-    val seed = "I"
+  def makeSentence(seed : String = "I"): Seq[String] = {
     seed +: unfold[String, String](seed) {
       case "." =>
         None
