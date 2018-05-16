@@ -1,11 +1,11 @@
 import scala.io.Source
 
 object Main extends App {
-  val wordSalad = new WordSalad(Source)
-  val lines = wordSalad.read()
-  val tokens = wordSalad.tokenize(lines)
-  val ngrams = wordSalad.ngram(3, tokens)
-  wordSalad.makeDictionary(ngrams)
+  val equivocator = new Equivocate(Source)
+  val lines = equivocator.read()
+  val tokens = equivocator.tokenize(lines)
+  val ngrams = equivocator.ngram(3, tokens)
+  equivocator.makeDictionary(ngrams)
 
-  println(wordSalad.makeSentence().mkString(" ").replace(" .", "."))
+  println(equivocator.makeSentence().mkString(" ").replace(" .", "."))
 }

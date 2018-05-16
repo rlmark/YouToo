@@ -3,7 +3,7 @@ import scala.collection.immutable
 import scala.io.Source
 import scala.util.Random
 
-class WordSalad(source: Source.type) {
+class Equivocate(source: Source.type) {
   def read(): String = {
     source.fromResource("statements").getLines().mkString("")
   }
@@ -17,7 +17,7 @@ class WordSalad(source: Source.type) {
     tokens.sliding(scale)
   }
 
-  var mutableMap: scala.collection.mutable.Map[(String, String), Vector[String]] = scala.collection.mutable.Map.empty
+  private var mutableMap: scala.collection.mutable.Map[(String, String), Vector[String]] = scala.collection.mutable.Map.empty
 
   def makeDictionary(ngrams: Ngrams) = {
     ngrams foreach { ngram: Vector[String] =>
