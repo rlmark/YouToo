@@ -17,32 +17,39 @@ class WordSalad {
     tokens.sliding(scale)
   }
 
-  private var mutableMap: scala.collection.mutable.Map[String, Vector[String]] = scala.collection.mutable.Map.empty
+  var mutableMap: scala.collection.mutable.Map[(String, String), Vector[String]] = scala.collection.mutable.Map.empty
 
   def makeDictionary(ngrams: Ngrams) = {
     ngrams foreach { ngram: Vector[String] =>
-      val w1 +: w2 = ngram
-      if (mutableMap.contains(w1)) mutableMap(w1) = mutableMap(w1) ++ w2
-      else mutableMap.put(w1, w2)
+      val w1 +: tail = ngram
+      if (mutableMap.contains( (w1, tail.head ))) mutableMap( (w1, tail.head)) = mutableMap((w1, tail.head)) ++ tail.tail
+      else mutableMap.put(w1 -> tail.head, tail.tail)
     }
   }
 
-  def shufflePick(target: String): String = {
-    val options: Seq[String] = mutableMap(target)
-    Random.shuffle(options).head
+  def shufflePick(target: (String, String)): (String) = {
+    lazy val randomValue: String = Random.shuffle(mutableMap.keys).head._1
+
+    val candidates: Option[Vector[String]] = mutableMap.get(target)
+
+    val maybeNext = candidates.map { foundNext: immutable.Seq[String] =>
+      Random.shuffle(foundNext).head
+    }
+
+    maybeNext.getOrElse(randomValue)
   }
 
   def makeStatement(desiredSentences: Int): Seq[String] = {
     (1 to desiredSentences).foldLeft(Seq.empty[String])((acc, _) => acc ++ makeSentence())
   }
 
-  def makeSentence(seed : String = "I"): Seq[String] = {
-    seed +: unfold[String, String](seed) {
-      case "." =>
+  def makeSentence(seed : (String, String) = ("I", "am")): Seq[String] = {
+    "I am" +: unfold[(String, String), String](seed) {
+      case (_, ".") =>
         None
-      case (x: String) =>
-        val out = shufflePick(x)
-        Some((out, out))
+      case (w1, w2) =>
+        val (out1) = shufflePick(w1,w2)
+        Some((w2, out1), out1)
     }
   }
 
