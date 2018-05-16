@@ -3,13 +3,13 @@ import scala.collection.immutable
 import scala.io.Source
 import scala.util.Random
 
-class WordSalad {
+class WordSalad(source: Source.type) {
   def read(): String = {
-    Source.fromResource("statements").getLines().mkString("")
+    source.fromResource("statements").getLines().mkString("")
   }
 
   def tokenize(string: String): Vector[String] = {
-    string.replaceAll("\\."," .").replaceAll("[\\,|;|:|'|\"]", "").split(" ").toVector
+    string.replaceAll("\\."," .").replaceAll("[\\,|;|:|'|\"|”]", "").split(" ").toVector
   }
 
   type Ngrams = Iterator[Vector[String]]
@@ -28,14 +28,13 @@ class WordSalad {
   }
 
   def shufflePick(target: (String, String)): (String) = {
-    lazy val randomValue: String = Random.shuffle(mutableMap.keys).head._1
-
     val candidates: Option[Vector[String]] = mutableMap.get(target)
 
     val maybeNext = candidates.map { foundNext: immutable.Seq[String] =>
       Random.shuffle(foundNext).head
     }
 
+    lazy val randomValue: String = Random.shuffle(mutableMap.keys).head._1
     maybeNext.getOrElse(randomValue)
   }
 
