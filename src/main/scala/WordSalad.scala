@@ -43,7 +43,7 @@ class WordSalad(source: Source.type) {
   }
 
   def makeSentence(seed : (String, String) = ("I", "am")): Seq[String] = {
-    "I am" +: unfold[(String, String), String](seed) {
+    s"${seed._1} ${seed._2}" +: unfold[(String, String), String](seed) {
       case (_, ".") =>
         None
       case (w1, w2) =>
