@@ -8,5 +8,4 @@ object Main extends App {
 
   println(wordSalad.makeSentence("She").mkString(" ").replace(" .", "."))
   println(wordSalad.makeSentence("I").mkString(" ").replace(" .", "."))
-//  println(wordSalad.makeStatement().mkString(" "))
 }

@@ -20,10 +20,10 @@ class WordSalad {
   private var mutableMap: scala.collection.mutable.Map[String, Vector[String]] = scala.collection.mutable.Map.empty
 
   def makeDictionary(ngrams: Ngrams) = {
-    ngrams foreach { ngram: immutable.Seq[String] =>
-      val w1 +: w2 +: _ = ngram
-      if (mutableMap.contains(w1)) mutableMap(w1) = mutableMap(w1) :+ w2
-      else mutableMap.put(w1, Vector(w2))
+    ngrams foreach { ngram: Vector[String] =>
+      val w1 +: w2 = ngram
+      if (mutableMap.contains(w1)) mutableMap(w1) = mutableMap(w1) ++ w2
+      else mutableMap.put(w1, w2)
     }
   }
 
