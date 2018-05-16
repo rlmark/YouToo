@@ -9,7 +9,7 @@ class WordSalad(source: Source.type) {
   }
 
   def tokenize(string: String): Vector[String] = {
-    string.replaceAll("\\."," .").replaceAll("[\\,|;|:|'|\"|”]", "").split(" ").toVector
+    string.replaceAll("\\."," .").replaceAll("[\\,|;|:|'|\"|”|“]", "").split(" ").toVector
   }
 
   type Ngrams = Iterator[Vector[String]]
