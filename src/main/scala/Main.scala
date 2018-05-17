@@ -1,11 +1,12 @@
-import scala.io.Source
+
 
 object Main extends App {
-  val equivocator = new Equivocate(Source)
+  val equivocator = new Equivocate()
   val lines = equivocator.read()
   val tokens = equivocator.tokenize(lines)
-  val ngrams = equivocator.ngram(3, tokens)
+  val ngrams = equivocator.ngram(tokens)
   equivocator.makeDictionary(ngrams)
 
   println(equivocator.makeSentence().mkString(" ").replace(" .", "."))
 }
+//I am sorry for the truthiness of the truth is I am blessed to be untrue.

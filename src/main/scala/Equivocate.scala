@@ -3,18 +3,21 @@ import scala.collection.immutable
 import scala.io.Source
 import scala.util.Random
 
-class Equivocate(source: Source.type) {
+class Equivocate() {
+  private val ORDER = 3 // DON'T CHANGE
+
   def read(): String = {
-    source.fromResource("statements").getLines().mkString("")
+    Source.fromResource("statements").getLines().mkString("")
   }
 
   def tokenize(string: String): Vector[String] = {
-    string.replaceAll("\\."," .").replaceAll("[\\,|;|:|'|\"|”|“]", "").split(" ").toVector
+                                             // Lord help me...
+    string.replaceAll("\\.", " .").replaceAll("[\\,|;|:|'|\"|”|“|\\(|\\)|]", "").split(" ").toVector
   }
 
   type Ngrams = Iterator[Vector[String]]
-  def ngram(scale: Int, tokens: Vector[String]): Ngrams = {
-    tokens.sliding(scale)
+  def ngram(tokens: Vector[String]): Ngrams = {
+    tokens.sliding(ORDER)
   }
 
   private var mutableMap: scala.collection.mutable.Map[(String, String), Vector[String]] = scala.collection.mutable.Map.empty
