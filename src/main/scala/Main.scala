@@ -10,3 +10,4 @@ object Main extends App {
   println(equivocator.makeSentence().mkString(" ").replace(" .", "."))
 }
 //I am sorry for the truthiness of the truth is I am blessed to be untrue.
+//I am not some innocent bystander I am in a position of significant power.

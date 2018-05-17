@@ -4,15 +4,14 @@ import scala.io.Source
 import scala.util.Random
 
 class Equivocate() {
-  private val ORDER = 3 // DON'T CHANGE
+  private val ORDER = 3 // DON'T CHANGE!!!
 
   def read(): String = {
     Source.fromResource("statements").getLines().mkString("")
   }
 
   def tokenize(string: String): Vector[String] = {
-                                             // Lord help me...
-    string.replaceAll("\\.", " .").replaceAll("[\\,|;|:|'|\"|”|“|\\(|\\)|]", "").split(" ").toVector
+    string.replaceAll("\\.", " .").replaceAll("[,;:'\"”“()]", "").split(" ").toVector
   }
 
   type Ngrams = Iterator[Vector[String]]
@@ -50,8 +49,8 @@ class Equivocate() {
       case (_, ".") =>
         None
       case (w1, w2) =>
-        val (out1) = shufflePick(w1,w2)
-        Some((w2, out1), out1)
+        val (out) = shufflePick(w1,w2)
+        Some((w2, out), out)
     }
   }
 
