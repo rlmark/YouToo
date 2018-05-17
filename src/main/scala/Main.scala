@@ -5,9 +5,9 @@ object Main extends App {
   val lines = equivocator.read()
   val tokens = equivocator.tokenize(lines)
   val ngrams = equivocator.ngram(tokens)
-  equivocator.makeDictionary(ngrams)
+  val dictionary = equivocator.makeDictionary(ngrams)
 
-  println(equivocator.makeSentence().mkString(" ").replace(" .", "."))
+  println(equivocator.makeSentence(dictionary).mkString(" ").replace(" .", "."))
 }
 //I am sorry for the truthiness of the truth is I am blessed to be untrue.
 //I am not some innocent bystander I am in a position of significant power.
