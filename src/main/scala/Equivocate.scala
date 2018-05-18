@@ -12,17 +12,15 @@ class Equivocate() {
   }
 
   def tokenize(string: String): Vector[String] = {
-                                             // Lord help me...
-    string.replaceAll("\\.", " .").replaceAll("[\\,|;|:|'|\"|”|“|\\(|\\)|]", "").split(" ").toVector
+    string.replaceAll("\\.", " .").replaceAll("[,;:'\"”“()]", "").split(" ").toVector
   }
 
   def ngram(tokens: Vector[String]): Ngrams = {
     tokens.sliding(ORDER)
   }
 
-  private var mutableMap: MutableMap[(String, String), Vector[String]] = scala.collection.mutable.Map.empty
-
   def makeDictionary(ngrams: Ngrams) = {
+    var mutableMap: MutableMap[(String, String), Vector[String]] = scala.collection.mutable.Map.empty
     ngrams foreach { ngram: Vector[String] =>
       val w1 +: tail = ngram
       if (mutableMap.contains( (w1, tail.head ))) mutableMap( (w1, tail.head)) = mutableMap((w1, tail.head)) ++ tail.tail

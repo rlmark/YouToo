@@ -9,5 +9,8 @@ object Main extends App {
 
   println(equivocator.makeSentence(dictionary).mkString(" ").replace(" .", "."))
 }
+// ~~~!*)()@#(FAVES!*)()@#(~~~
 //I am sorry for the truthiness of the truth is I am blessed to be untrue.
 //I am not some innocent bystander I am in a position of significant power.
+//I am confident that these women know I haven’t been sober for more than 5 years.
+//I am cooperating with the House of Representatives through hyperbolized public excoriation.
