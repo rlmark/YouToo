@@ -23,9 +23,9 @@ class Equivocate(random: Random) {
   def makeDictionary(ngrams: Ngrams) = {
     var mutableMap: MutableMap[(String, String), Vector[String]] = scala.collection.mutable.Map.empty
     ngrams foreach { ngram: Vector[String] =>
-      val w1 +: tail = ngram
-      if (mutableMap.contains( (w1, tail.head ))) mutableMap( (w1, tail.head)) = mutableMap((w1, tail.head)) ++ tail.tail
-      else mutableMap.put(w1 -> tail.head, tail.tail)
+      val w1 +: w2 +: tail = ngram
+      if (mutableMap.contains( (w1, w2 ))) mutableMap( (w1, w2)) = mutableMap((w1, w2)) ++ tail
+      else mutableMap.put(w1 -> w2, tail)
     }
     mutableMap
   }
