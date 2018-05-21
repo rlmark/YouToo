@@ -6,7 +6,7 @@ import scala.util.Random
 
 class Equivocate(random: Random) {
   private val ORDER = 3 // DON'T CHANGE
-  type Ngrams = Iterator[Vector[String]]
+  type Ngrams = Iterable[Vector[String]]
 
   def read(): String = {
     Source.fromResource("statements").getLines().mkString("")
@@ -17,7 +17,7 @@ class Equivocate(random: Random) {
   }
 
   def ngram(tokens: Vector[String]): Ngrams = {
-    tokens.sliding(ORDER)
+    tokens.sliding(ORDER).toIterable
   }
 
   def makeDictionary(ngrams: Ngrams) = {
@@ -34,7 +34,7 @@ class Equivocate(random: Random) {
     val candidates: Option[Vector[String]] = dictionary.get(target)
 
     val maybeNext = candidates.map { foundNext: immutable.Seq[String] =>
-      random.shuffle(foundNext)head
+      random.shuffle(foundNext).head
     }
 
     lazy val randomValue: String = random.shuffle(dictionary.keys).head._1

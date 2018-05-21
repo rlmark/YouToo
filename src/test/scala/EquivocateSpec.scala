@@ -2,6 +2,7 @@ import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{Matchers, WordSpec}
 
+import scala.collection.generic.CanBuildFrom
 import scala.collection.mutable.{Map => MutableMap}
 import scala.util.Random
 
@@ -31,7 +32,7 @@ class EquivocateSpec extends WordSpec with Matchers with MockitoSugar {
     }
   }
   "makeDictionary" should {
-    val ngrams = Iterator(
+    val ngrams = Iterable(
       Vector("this", "is", "a"),
       Vector("is", "a", "test"),
       Vector("a", "test", "b"),
@@ -45,7 +46,6 @@ class EquivocateSpec extends WordSpec with Matchers with MockitoSugar {
     }
     "take ngrams and turn them into a dictionary that handles single values for a key" in withMocks { (equivocator, _) =>
       val dictionary = equivocator.makeDictionary(ngrams)
-      dictionary foreach println
       dictionary("b" ->"c") shouldBe Vector("this")
     }
     "take ngrams and turn them into a dictionary where values are accumulated by key" in withMocks { (equivocator, _) =>
@@ -57,7 +57,7 @@ class EquivocateSpec extends WordSpec with Matchers with MockitoSugar {
     "pick a next word when a target is present" in withMocks { (equivocator, random) =>
       val listOfCandidates = Vector("c", "c", "d", "z")
       val dictionary = MutableMap(("a", "b") -> listOfCandidates)
-      when(random.shuffle(listOfCandidates)).thenReturn(Vector("d", "c", "c", "z"))
+      when(random.shuffle(org.mockito.ArgumentMatchers.eq(listOfCandidates))(org.mockito.ArgumentMatchers.any[CanBuildFrom[Vector[String],String,Vector[String]]])).thenReturn(Vector("d", "c", "c", "z"))
 
       equivocator.shufflePick(("a","b"), dictionary) shouldBe "d"
     }

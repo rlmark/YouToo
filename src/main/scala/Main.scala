@@ -16,3 +16,5 @@ object Main extends App {
 //I am confident that these women know I haven’t been sober for more than 5 years.
 //I am cooperating with the House of Representatives through hyperbolized public excoriation.
 //I am leaving while a man of violence.
+//The future belongs to those who felt hurt
+//I am not giving up my voice.
