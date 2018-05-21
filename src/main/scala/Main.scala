@@ -1,7 +1,8 @@
-
+import scala.util.Random
 
 object Main extends App {
-  val equivocator = new Equivocate()
+  val random = new Random()
+  val equivocator = new Equivocate(random)
   val lines = equivocator.read()
   val tokens = equivocator.tokenize(lines)
   val ngrams = equivocator.ngram(tokens)
@@ -14,3 +15,4 @@ object Main extends App {
 //I am not some innocent bystander I am in a position of significant power.
 //I am confident that these women know I haven’t been sober for more than 5 years.
 //I am cooperating with the House of Representatives through hyperbolized public excoriation.
+//I am leaving while a man of violence.

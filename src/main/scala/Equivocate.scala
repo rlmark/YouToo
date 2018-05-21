@@ -3,7 +3,8 @@ import scala.collection.immutable
 import scala.collection.mutable.{Map => MutableMap}
 import scala.io.Source
 import scala.util.Random
-class Equivocate() {
+
+class Equivocate(random: Random) {
   private val ORDER = 3 // DON'T CHANGE
   type Ngrams = Iterator[Vector[String]]
 
@@ -33,10 +34,10 @@ class Equivocate() {
     val candidates: Option[Vector[String]] = dictionary.get(target)
 
     val maybeNext = candidates.map { foundNext: immutable.Seq[String] =>
-      Random.shuffle(foundNext).head
+      random.shuffle(foundNext)head
     }
 
-    lazy val randomValue: String = Random.shuffle(dictionary.keys).head._1
+    lazy val randomValue: String = random.shuffle(dictionary.keys).head._1
     maybeNext.getOrElse(randomValue)
   }
 
