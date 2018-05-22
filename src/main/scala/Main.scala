@@ -18,3 +18,4 @@ object Main extends App {
 //I am leaving while a man of violence.
 //The future belongs to those who felt hurt
 //I am not giving up my voice.
+//I am writing this I realize that is not about me.

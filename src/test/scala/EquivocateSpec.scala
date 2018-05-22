@@ -61,5 +61,12 @@ class EquivocateSpec extends WordSpec with Matchers with MockitoSugar {
 
       equivocator.shufflePick(("a","b"), dictionary) shouldBe "d"
     }
+    "pick a new target when a candidate can not be found" in withMocks { (equivocator, random) =>
+      val listOfCandidates = Vector("c", "d", "z")
+      val dictionary = MutableMap(("a", "b") -> listOfCandidates)
+      when(random.shuffle(org.mockito.ArgumentMatchers.eq(listOfCandidates))(org.mockito.ArgumentMatchers.any[CanBuildFrom[Vector[String],String,Vector[String]]])).thenReturn(Vector("d", "c", "c", "z"))
+      equivocator.shufflePick(("NotAKey", "InTheMap"), dictionary)
+    }
   }
+
 }
