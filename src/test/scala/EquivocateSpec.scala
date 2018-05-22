@@ -57,7 +57,8 @@ class EquivocateSpec extends WordSpec with Matchers with MockitoSugar {
     "pick a next word when a target is present" in withMocks { (equivocator, random) =>
       val listOfCandidates = Vector("c", "c", "d", "z")
       val dictionary = MutableMap(("a", "b") -> listOfCandidates)
-      when(random.shuffle(org.mockito.ArgumentMatchers.eq(listOfCandidates))(org.mockito.ArgumentMatchers.any[CanBuildFrom[Vector[String],String,Vector[String]]])).thenReturn(Vector("d", "c", "c", "z"))
+      when(random.shuffle(org.mockito.ArgumentMatchers.eq(listOfCandidates))(org.mockito.ArgumentMatchers.any[CanBuildFrom[Vector[String],String,Vector[String]]]))
+        .thenReturn(Vector("d", "c", "c", "z"))
 
       equivocator.shufflePick(("a","b"), dictionary) shouldBe "d"
     }
@@ -68,6 +69,36 @@ class EquivocateSpec extends WordSpec with Matchers with MockitoSugar {
         (org.mockito.ArgumentMatchers.any[CanBuildFrom[Iterable[(String, String)],(String, String),Iterable[(String, String)]]]))
         .thenReturn(Vector(("a","b")))
       equivocator.shufflePick(("NotAKey", "InTheMap"), dictionary) shouldBe "a"
+    }
+  }
+  "make sentence" should {
+    "make a valid sentence" in withMocks{ (equivocator, random) =>
+      val dictionary = MutableMap(
+        ("I", "am") -> Vector("a", "sad"),
+        ("am", "a") -> Vector("cat"),
+        ("am", "sad") -> Vector("."),
+        ("sad", ".") -> Vector(),
+        ("a", "cat") -> Vector("."),
+        ("cat", ".") -> Vector()
+      )
+      when(
+        random.shuffle(org.mockito.ArgumentMatchers.eq(Vector("a", "sad")))
+        (org.mockito.ArgumentMatchers.any[CanBuildFrom[Vector[String],String,Vector[String]]])
+      ).thenReturn(Vector("a", "sad"))
+
+      when(
+        random.shuffle(org.mockito.ArgumentMatchers.eq(Vector("cat")))
+        (org.mockito.ArgumentMatchers.any[CanBuildFrom[Vector[String],String,Vector[String]]])
+      ).thenReturn(Vector("cat"))
+
+      when(
+        random.shuffle(org.mockito.ArgumentMatchers.eq(Vector(".")))
+        (org.mockito.ArgumentMatchers.any[CanBuildFrom[Vector[String],String,Vector[String]]])
+      ).thenReturn(Vector("."))
+
+      val seed = ("I", "am")
+      equivocator.makeSentence(dictionary, seed) shouldBe Vector(s"${seed._1} ${seed._2}", "a", "cat", ".")
+
     }
   }
 

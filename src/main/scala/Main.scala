@@ -19,3 +19,4 @@ object Main extends App {
 //The future belongs to those who felt hurt
 //I am not giving up my voice.
 //I am writing this I realize that is not about me.
+//I am part of our behavior.
