@@ -24,7 +24,7 @@ class Equivocate(random: Random) {
     var mutableMap: MutableMap[(String, String), Vector[String]] = scala.collection.mutable.Map.empty
     ngrams foreach { ngram: Vector[String] =>
       val w1 +: w2 +: tail = ngram
-      if (mutableMap.contains( (w1, w2 ))) mutableMap( (w1, w2)) = mutableMap((w1, w2)) ++ tail
+      if (mutableMap.contains((w1, w2))) mutableMap( (w1, w2)) = mutableMap((w1, w2)) ++ tail
       else mutableMap.put(w1 -> w2, tail)
     }
     mutableMap
