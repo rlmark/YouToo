@@ -10,6 +10,7 @@ object Main extends App {
 
   println(equivocator.makeSentence(dictionary).mkString(" ").replace(" .", "."))
 }
+
 // ~~~!*)()@#(FAVES!*)()@#(~~~
 //I am sorry for the truthiness of the truth is I am blessed to be untrue.
 //I am not some innocent bystander I am in a position of significant power.
@@ -17,6 +18,8 @@ object Main extends App {
 //I am cooperating with the House of Representatives through hyperbolized public excoriation.
 //I am leaving while a man of violence.
 //The future belongs to those who felt hurt
+//The future belongs to those who felt wronged by me.
 //I am not giving up my voice.
 //I am writing this I realize that is not about me.
 //I am part of our behavior.
+// TODO: poem state storage

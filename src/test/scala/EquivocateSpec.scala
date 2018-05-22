@@ -98,8 +98,6 @@ class EquivocateSpec extends WordSpec with Matchers with MockitoSugar {
 
       val seed = ("I", "am")
       equivocator.makeSentence(dictionary, seed) shouldBe Vector(s"${seed._1} ${seed._2}", "a", "cat", ".")
-
     }
   }
-
 }
