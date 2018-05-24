@@ -55,7 +55,15 @@ class Equivocate(random: Random) {
     }
   }
 
-  def unfold[A,B](seed: A)(f: A => Option[(A, B)]): Vector[B] = {
+  def run(): String = {
+    val lines = read()
+    val tokens = tokenize(lines)
+    val ngrams = ngram(tokens)
+    val dictionary = makeDictionary(ngrams)
+    makeSentence(dictionary).mkString(" ").replace(" .", ".")
+  }
+
+  private def unfold[A,B](seed: A)(f: A => Option[(A, B)]): Vector[B] = {
     @tailrec
     def go(s: A, v: Vector[B]): Vector[B] = f(s) match {
       case None => v
