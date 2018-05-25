@@ -12,6 +12,7 @@ libraryDependencies := Seq(
   "org.http4s" %% "http4s-blaze-server" % http4sVersion,
   "org.http4s" %% "http4s-blaze-client" % http4sVersion,
   "io.monix" %% "monix" % "3.0.0-RC1",
+  "com.github.pathikrit" %% "better-files" % "3.5.0",
   "org.typelevel" %% "cats-core" % "1.0.1",
   "org.scalactic" %% "scalactic" % "3.0.5",
   "org.scalatest" %% "scalatest" % "3.0.5" % Test,
