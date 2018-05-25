@@ -1,3 +1,5 @@
+import monix.eval.Task
+
 import scala.annotation.tailrec
 import scala.collection.immutable
 import scala.collection.mutable.{Map => MutableMap}
@@ -8,8 +10,8 @@ class Equivocate(random: Random) {
   private val ORDER = 3 // DON'T CHANGE
   type Ngrams = Iterable[Vector[String]]
 
-  def read(): String = {
-    Source.fromResource("statements").getLines().mkString("")
+  def read(): Task[String] = {
+    Task(Source.fromResource("statements").getLines().mkString(""))
   }
 
   def tokenize(string: String): Vector[String] = {
@@ -55,15 +57,17 @@ class Equivocate(random: Random) {
     }
   }
 
-  def run(): String = {
-    val lines = read()
-    val tokens = tokenize(lines)
-    val ngrams = ngram(tokens)
-    val dictionary = makeDictionary(ngrams)
-    makeSentence(dictionary).mkString(" ").replace(" .", ".")
+  def run(): Task[String] = {
+    for {
+      lines <- read()
+      tokens = tokenize(lines)
+      ngrams = ngram(tokens)
+      dictionary = makeDictionary(ngrams)
+      sentence = makeSentence(dictionary).mkString(" ").replace(" .", ".")
+    } yield sentence
   }
 
-  private def unfold[A,B](seed: A)(f: A => Option[(A, B)]): Vector[B] = {
+  private def unfold[A, B](seed: A)(f: A => Option[(A, B)]): Vector[B] = {
     @tailrec
     def go(s: A, v: Vector[B]): Vector[B] = f(s) match {
       case None => v
