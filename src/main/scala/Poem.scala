@@ -6,17 +6,17 @@ import scala.concurrent.duration.Duration
 
 class Poem {
   val lock = new MLock()
+//  private val filePath = "./data/recombinations.txt"
+  private val filePath = "./data/TEST.txt"
 
   def read: Task[Seq[String]] = {
-    Task(File("./data/TEST.txt").contentAsString.split("\n"))
+    Task(File(filePath).lineIterator.toSeq)
   }
 
   def append(lineToAppend: String): Task[Unit] = {
     lock.greenLight(
       Task {
-        println("Hey I'm writing to the file")
-        File("./data/TEST.txt").createIfNotExists().appendLine(lineToAppend)
-        Thread.sleep(5000)
+        File(filePath).createIfNotExists().appendLine(lineToAppend)
       }
     )
   }
