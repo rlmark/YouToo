@@ -79,3 +79,7 @@ class Equivocate(random: Random) {
   }
 }
 
+object Equivocate {
+  def apply(random: Random): Equivocate = new Equivocate(random)
+}
+

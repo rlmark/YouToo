@@ -1,10 +1,12 @@
-import monix.eval.{MVar, Task}
+package service
+
 import better.files._
+import monix.eval.{MVar, Task}
 
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
-class Poem {
+class PoemRepository {
   val lock = new MLock()
 //  private val filePath = "./data/recombinations.txt"
   private val filePath = "./data/TEST.txt"
@@ -41,7 +43,7 @@ class MLock {
 
 object Test extends App {
   import monix.execution.Scheduler.Implicits.global
-  val  p = new Poem
+  val  p = new PoemRepository
 
   val tasks = Seq(p.append("adding a new thing1"), p.append("adding a new thing2"), p.append("adding a new thing3"), p.append("adding a new thing4"), p.append("adding a new thing5"))
 
