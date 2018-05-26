@@ -1,5 +1,3 @@
-package service
-
 import better.files._
 import monix.eval.{MVar, Task}
 
@@ -8,8 +6,8 @@ import scala.concurrent.duration.Duration
 
 class PoemRepository {
   val lock = new MLock()
-//  private val filePath = "./data/recombinations.txt"
-  private val filePath = "./data/TEST.txt"
+  private val filePath = "./data/recombinations.txt"
+//  private val filePath = "./data/TEST.txt"
 
   def read: Task[Seq[String]] = {
     Task(File(filePath).lineIterator.toSeq)
