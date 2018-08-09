@@ -11,8 +11,10 @@ import scala.util.Random
 
 object Main extends StreamApp[Task] {
   val random = new Random()
+  val mLock = new MLock()
+
   val equivocator = new Equivocate(random)
-  val poemRepo = new PoemRepository()
+  val poemRepo = new PoemRepository(mLock)
 
   val textGenService = new TextGenerationService(equivocator)
   val poemStateService = new PoemService(poemRepo)

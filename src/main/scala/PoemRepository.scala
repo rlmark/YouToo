@@ -4,19 +4,17 @@ import monix.eval.{MVar, Task}
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
-class PoemRepository {
-  val lock = new MLock()
+class PoemRepository(lock: MLock) {
   private val filePath = "./data/recombinations.txt"
-//  private val filePath = "./data/TEST.txt"
 
   def read: Task[Seq[String]] = {
     Task(File(filePath).lineIterator.toSeq)
   }
 
-  def append(lineToAppend: String): Task[Unit] = {
+  def append(newLine: String): Task[Unit] = {
     lock.greenLight(
       Task {
-        File(filePath).createIfNotExists().appendLine(lineToAppend)
+        File(filePath).createIfNotExists().appendLine(newLine)
       }
     )
   }
@@ -41,7 +39,7 @@ class MLock {
 
 object Test extends App {
   import monix.execution.Scheduler.Implicits.global
-  val  p = new PoemRepository
+  val  p = new PoemRepository(new MLock)
 
   val tasks = Seq(p.append("adding a new thing1"), p.append("adding a new thing2"), p.append("adding a new thing3"), p.append("adding a new thing4"), p.append("adding a new thing5"))
 
